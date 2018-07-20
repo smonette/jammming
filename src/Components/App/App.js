@@ -11,8 +11,10 @@ class App extends Component {
     super(props)
     this.state = {
       searchResults: [
-        {name:'song 1', artist: 'some artist', album: 'album', id:1}, 
-        {name:'song 2', artist: 'some artist', album: 'album', id:2}
+        {name:'song 1', artist: 'some artist', album: 'album 1', id:1}, 
+        {name:'song 2', artist: 'some artist', album: 'album 2', id:2},
+        {name:'song 3', artist: 'some artist', album: 'album 3', id:3}, 
+        {name:'song 4', artist: 'some artist', album: 'album 4', id:4},
         ],
       playlistName:'stephs playlist',
       playlistTracks: [{name:'song 1', artist: 'some artist', album: 'album', id:1}]
@@ -23,16 +25,18 @@ class App extends Component {
   }
   addTrack(track){
     if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)){
+      alert('add track')
       return
     }
   }
   removeTrack(track){
     if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)){
+      alert('add track')
       return
     }
   }
   updatePlaylistName(name){
-
+    this.state.playlistName = 'input field value goes here'
   }
   render() {
     let playlistName = this.playlistName

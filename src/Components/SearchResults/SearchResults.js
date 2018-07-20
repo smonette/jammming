@@ -8,10 +8,11 @@ class SearchResults extends Component {
   render() {
     let onAdd = this.props.onAdd;
     let tracks = this.props.tracks;
+    
     return (
       <div className="SearchResults">
         <h2>Results</h2>
-        <TrackList tracks={tracks} isRemoval={false} />
+        <TrackList tracks={tracks} isRemoval={false} onAdd={onAdd} />
       </div>
 
     );
