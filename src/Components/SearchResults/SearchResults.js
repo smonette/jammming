@@ -11,7 +11,7 @@ class SearchResults extends Component {
     return (
       <div className="SearchResults">
         <h2>Results</h2>
-        <TrackList />
+        <TrackList isRemoval=false />
       </div>
 
     );
