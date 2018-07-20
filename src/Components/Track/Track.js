@@ -3,27 +3,24 @@ import './Track.css';
 
 
 class Track extends Component {
-  constructor(props) {
-    super(props)
-    this.addTrack = this.addTrack.bind(this);
-    this.removeTrack = this.removeTrack.bind(this);
-  }
-  renderAction(){
+  renderAction(isRemoval){
     if(isRemoval === false){
-      return  <a className="Track-action" onClick={this.addTrack(this.this.props.track)}>+</a>
+      return  <a className="Track-action" onClick={() => this.props.onAdd(this.props.track)}>+</a>
     } else {
-      return  <a className="Track-action" onClick={this.removeTrack(this.this.props.track)}>-</a>
+      return  <a className="Track-action" onClick={() => this.props.onRemove(this.props.track)}>-</a>
     }
   }
   render() {
-    let addOn = this.props.addOn;
+    let onAdd = this.props.onAdd;
+    let isRemoval = this.props.isRemoval;
+    let track = this.props.track;
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{this.props.track.name}</h3>
-          <p>{this.props.track.artist} | {this.props.track.album}</p>
+          <h3>{track.name}</h3>
+          <p>{track.artist} | {track.album}</p>
         </div>
-        {renderAction}
+        {this.renderAction(isRemoval)}
       </div>
 
     );

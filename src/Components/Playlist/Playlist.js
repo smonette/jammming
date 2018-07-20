@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './Playlist.css';
 
-import TrackList from './TrackList'
+import TrackList from '../TrackList/TrackList'
 
 class Playlist extends Component {
-
   render() {
-    onRemove = this.props.onRemove
+    const tracks = [];
+    const onRemove = this.props.onRemove
     return (
       <div className="Playlist">
         <input value="New Playlist"/>
-        <TrackList isRemoval=true />
+        <TrackList tracks={tracks} onRemove={onRemove} isRemoval={true} />
         <a className="Playlist-save">SAVE TO SPOTIFY</a>
       </div>
 
