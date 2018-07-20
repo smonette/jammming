@@ -9,7 +9,8 @@ class Playlist extends Component {
     this.handleNameChange = this.handleNameChange.bind(this);
   }
   handleNameChange(){
-    onNameChange
+    // TODO: what the heck do i do with onNameChange???
+    // onNameChange()
   }
   render() {
     const tracks = [];

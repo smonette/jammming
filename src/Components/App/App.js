@@ -26,6 +26,7 @@ class App extends Component {
   addTrack(track){
     if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)){
       alert('add track')
+      // TODO: what does the return actually do??
       return
     }
   }
