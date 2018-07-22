@@ -14,13 +14,15 @@ class Playlist extends Component {
   }
   render() {
     const tracks = [];
-    const onRemove = this.props.onRemove
-    
+    const onRemove = this.props.onRemove;
+    const onSave = this.props.onSave;
+    const playlistTracks = this.props.playlistTracks;
+
     return (
       <div className="Playlist">
-        <input value="New Playlist" onChange={this.handleNameChange}/>
-        <TrackList tracks={tracks} onRemove={onRemove} isRemoval={true} />
-        <a className="Playlist-save">SAVE TO SPOTIFY</a>
+        <input defaultValue={'New Playlist'} onChange={this.handleNameChange}/>
+        <TrackList tracks={playlistTracks} onRemove={onRemove} isRemoval={true} />
+        <a className="Playlist-save" onClick={onSave}>SAVE TO SPOTIFY</a>
       </div>
 
     );
