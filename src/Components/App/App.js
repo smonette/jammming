@@ -28,8 +28,7 @@ class App extends Component {
   }
   addTrack(track){
     if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)){
-      alert('add track')
-      // TODO: what does the return actually do??
+      console.log('add track')
       return
     }
     this.setState({
@@ -41,6 +40,7 @@ class App extends Component {
     this.setState({
       playlistTracks: newPlaylistTracks
     })
+     console.log('remove track')
   }
   updatePlaylistName(name){
     this.setState({

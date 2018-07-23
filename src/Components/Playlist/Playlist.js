@@ -8,9 +8,9 @@ class Playlist extends Component {
     super(props)
     this.handleNameChange = this.handleNameChange.bind(this);
   }
-  handleNameChange(){
+  handleNameChange(event){
     // TODO: what the heck do i do with onNameChange???
-    // onNameChange()
+    this.props.onNameChange(event)
   }
   render() {
     const tracks = [];
