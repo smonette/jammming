@@ -9,8 +9,8 @@ class Playlist extends Component {
     this.handleNameChange = this.handleNameChange.bind(this);
   }
   handleNameChange(event){
-    // TODO: what the heck do i do with onNameChange???
-    this.props.onNameChange(event)
+    // event.currenttarget.value brings in the input value, not all the event junk
+    this.props.onNameChange(event.currentTarget.value)
   }
   render() {
     const tracks = [];

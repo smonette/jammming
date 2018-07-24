@@ -18,9 +18,13 @@ class App extends Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
-    // this.savePlaylist = this.savePlaylist.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
-
+  }
+  componentDidMount(){
+    // This checks for the token on load
+    // to prevent the weird double search stuff
+    Spotify.getAccessToken();
   }
   addTrack(track){
     if(this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)){
@@ -44,13 +48,13 @@ class App extends Component {
       }
     )
   }
-  // savePlaylist(){
-  //   // Generates an array of uri values called trackURIs from the playlistTracks property.
-  //   // TODO: What does URI mean??
-  //   const trackURI = this.state.playlistTracks.map(savedTrack => {
-  //     return savedTrack.uri;
-  //   });
-  // }
+  savePlaylist(){
+    const formattedTracks  = this.state.playlistTracks.map(playlistTrack=>{
+      return playlistTrack.uri
+    })
+
+    Spotify.savePlaylist(this.state.playlistName, formattedTracks)
+  }
   search(searchTerm){
     Spotify.search(searchTerm).then(
       tracks => this.setState({
@@ -68,7 +72,7 @@ class App extends Component {
           <SearchBar onSearch={this.search} />
           <div className="App-playlist">
             <SearchResults onAdd={this.addTrack} tracks={this.state.searchResults} />
-            <Playlist playlistName={this.state.playlistName} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={Spotify.savePlaylist} playlistTracks={this.state.playlistTracks}/>
+            <Playlist playlistName={this.state.playlistName} onRemove={this.removeTrack} onNameChange={this.updatePlaylistName} onSave={this.savePlaylist} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
       </div>

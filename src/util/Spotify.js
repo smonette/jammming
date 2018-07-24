@@ -1,12 +1,14 @@
 let accessToken = '';
 const clientID = '07fc00f4e24246fc9040b5f1a0b5899c';
+
+//  for production
 // const redirect = 'http://smonette-jammming.surge.sh';
+
+// For local dev
 const redirect = 'http://localhost:3000';
 
 const Spotify = {
   getAccessToken() {
-    // TODO: how is this set?? 
-    console.log("access token: ", accessToken)
     if (accessToken){
       return accessToken;
     } else {
@@ -20,14 +22,9 @@ const Spotify = {
           accessToken = sessionToken[1];
           // Set a variable for expiration time
           let expirationTime = sessionExpiration[1];
-          // TODO: Set the access token to expire at the value for expiration time 
-          // ??????
-          // set as cookie
-          // local storages doesnt have expir
-          // document.cookie = 'access-token something something'
 
           // Clear the parameters from the URL, so the app doesn't try grabbing the access token after it has expired
-          // window.setTimeout(() => accessToken = '', expirationTime * 1000);
+          window.setTimeout(() => accessToken = '', expirationTime * 1000);
           window.history.pushState('Access Token', null, '/');
 
         } else {
@@ -35,9 +32,7 @@ const Spotify = {
         }
     }
   },
-// I dont know if/why i need the comma above, but I'm getting a syntax error without?
   search(term) {
-    // returns a promise that will eventually resolve to the list of tracks from the search
     const spotifySearchUrl = 'https://api.spotify.com/v1/search?type=track&q='
     const spotifyAccessToken = Spotify.getAccessToken()
 
@@ -61,22 +56,77 @@ const Spotify = {
 
   },
   savePlaylist(playlistName, playlistTracks) {
+    let currentUserToken = Spotify.getAccessToken();
+    let headers = "headers: {Authorization: `Bearer ${currentUserToken}`}"
+    let userID = ''
     // call spotify for save playlist, get the users id from 
-    let url= 'https://api.spotify.com/v1/me'
+    let apiUrl='https://api.spotify.com/v1'
+    let playlistID = ''
+
+    const getUserId = () => {
+      return fetch(`${apiUrl}/me`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${currentUserToken}`
+          }
+        }).then(response => {
+          return response.json();
+        }).then(jsonResponse => {
+            userID = jsonResponse.id
+            return userID
+        }) 
+        .catch(error => console.error(`Error getting UserID =\n`, error));  
+    }
+
+    // POST a new playlist with the input name to the current user's Spotify account. 
+    // Receive the playlist ID back from the request.
+    const savePlaylistName = (userID) => {
+        return fetch(`${apiUrl}/users/${userID}/playlists`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Authorization: `Bearer ${currentUserToken}`
+
+            },
+            body: JSON.stringify({name: playlistName}), 
+        }).then(response => {
+        return response.json();
+        })
+        .then(jsonResponse => {
+            playlistID = jsonResponse.id
+            return playlistID;
+        })
+        .catch(error => console.error(`Error Saving Playlist Name =\n`, error));
+    };
 
 
-    // GET current user's ID
-    // POST a new playlist with the input name to the current user's Spotify account. Receive the playlist ID back from the request.
     // POST the track URIs to the newly-created playlist, referencing the current user's account (ID) and the new playlist (ID)
-  
-    let currentUserToken = this.getAccessToken();
-    // An access token variable, set to the current user's access token
-    // A headers variable, set to an object with an Authorization parameter containing the user's access token in the implicit grant flow request format
-    // An empty variable for the user's ID
-  }
+    const savePlaylistTracks = (userID, playlistID) => {
+        return fetch(`${apiUrl}/users/${userID}/playlists/${playlistID}/tracks`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Authorization: `Bearer ${currentUserToken}`
+            },
+            body: JSON.stringify({"uris": playlistTracks}), 
+        }).then(response => {
+          return response.json();
+        })
+        .then(jsonResponse => {
+            return jsonResponse.response
+        })
+        .catch(error => console.error(`Error Saving Playlist Tracks =\n`, error));
+    };
 
+    //  Where the magic actually happens!
+    getUserId().then(userID => savePlaylistName(userID).then(playlistID => savePlaylistTracks(userID, playlistID)))
+
+
+  }
+  // close save
 
 
 }
+// close spotify
 
 export default Spotify;
