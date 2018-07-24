@@ -3,6 +3,18 @@ A project for Codecademy's React Immersive course
 
 ## Getting Started
 
+1. Install packages: `npm install`
+2. Start app: `npm start`
+
+## Deploying
+1. Install [Surge](https://surge.sh/) globally: `npm install -g surge`
+2. In root `npm run build`
+3. Navigate to the build folder: `cd build`
+4. Run `surge`
+
+
+
+
 ## Project Prompt
 ### Features
 * Spotify Login — the first time a user searches for a song, album, or artist, Spotify will ask them to log in or set up a new account. You will need to follow the steps in the Spotify Developer Guide to register your application.
