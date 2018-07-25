@@ -2,10 +2,10 @@ let accessToken = '';
 const clientID = '07fc00f4e24246fc9040b5f1a0b5899c';
 
 //  for production
-// const redirect = 'http://smonette-jammming.surge.sh';
+const redirect = 'http://smonette-jammming.surge.sh';
 
 // For local dev
-const redirect = 'http://localhost:3000';
+// const redirect = 'http://localhost:3000';
 
 const Spotify = {
   getAccessToken() {
