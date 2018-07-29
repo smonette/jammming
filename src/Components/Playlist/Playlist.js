@@ -20,7 +20,10 @@ class Playlist extends Component {
 
     return (
       <div className="Playlist">
-        <input defaultValue={'New Playlist'} onChange={this.handleNameChange}/>
+        <div className="PlaylistName">
+          <i className="fas fa-pencil-alt"></i>
+          <input defaultValue={'New Playlist'} onChange={this.handleNameChange}/>
+        </div>
         <TrackList tracks={playlistTracks} onRemove={onRemove} isRemoval={true} />
         <a className="Playlist-save" onClick={onSave}>SAVE TO SPOTIFY</a>
       </div>

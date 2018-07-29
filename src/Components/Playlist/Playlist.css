@@ -9,6 +9,15 @@
   background-color: rgba(1, 12, 63, 0.7);
   box-shadow: 0 4px 2px 2px #000000;
 }
+.PlaylistName {
+  position: relative;
+  padding-left: 25px;
+}
+.PlaylistName svg {
+  position: absolute;
+  left: 0;
+  padding-top: 12px;
+}
 
 .Playlist input {
   width: 100%;
