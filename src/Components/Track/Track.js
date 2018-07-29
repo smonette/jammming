@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TextTruncate from 'react-text-truncate';
 import './Track.css';
 
 
@@ -27,8 +28,18 @@ class Track extends Component {
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{track.name}</h3>
-          <p>{track.artists} | {track.album}</p>
+          <img className="TrackArt" src={track.albumArt} />
+          <div>
+            <h3>
+              <TextTruncate
+                line={2}
+                truncateText="…"
+                text={track.name}
+              />
+            </h3>
+            <p>{track.artists}</p>
+            <p>{track.album}</p>
+          </div>
         </div>
         {this.renderAction(isRemoval)}
       </div>

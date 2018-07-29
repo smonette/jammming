@@ -2,10 +2,10 @@ let accessToken = '';
 const clientID = '07fc00f4e24246fc9040b5f1a0b5899c';
 
 //  for production
-const redirect = 'http://smonette-jammming.surge.sh';
+// const redirect = 'http://smonette-jammming.surge.sh';
 
 // For local dev
-// const redirect = 'http://localhost:3000';
+const redirect = 'http://localhost:3000';
 
 const Spotify = {
   getAccessToken() {
@@ -44,11 +44,13 @@ const Spotify = {
       return response.json();
     }).then(jsonResponse => {
       if (jsonResponse.tracks) {
+        console.log(jsonResponse.tracks)
         return jsonResponse.tracks.items.map(track => ({
           id: track.id,
           name: track.name,
           artists: track.artists[0].name,
           album: track.album.name,
+          albumArt: track.album.images[2].url,
           uri: track.uri
         }));
       }
