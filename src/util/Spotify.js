@@ -44,11 +44,13 @@ const Spotify = {
       return response.json();
     }).then(jsonResponse => {
       if (jsonResponse.tracks) {
+        console.log(jsonResponse.tracks)
         return jsonResponse.tracks.items.map(track => ({
           id: track.id,
           name: track.name,
           artists: track.artists[0].name,
           album: track.album.name,
+          albumArt: track.album.images[2].url,
           uri: track.uri
         }));
       }
