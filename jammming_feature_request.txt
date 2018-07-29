@@ -4,22 +4,33 @@ July 31,  2018
 
 OBJECTIVE
 Improve app adoption by making the functionality easier to use and adopt.
+
+
 BACKGROUND 
 In user research sessions we’ve seen a lot of places where Jammming functionality was confusing. For example, our users struggled with:
+
 Search
 They’d often hit Enter/Return, then think search was broken when nothing happened
+
 Updating playlist name
 Many users didn’t realize the text was editable
- Save playlist
+
+Save playlist
 Users kept clicking the button because there was no feedback that it saved, and ended up making multiple playlists once they logged into Spotify. They were also confused by the button being present when they hadn’t started to create a playlist yet.
+
+
 TECHNICAL DESIGN
 Search
 Add a handler that listens on keypress, and if “Enter” is detected, call the search function.
+
 Updating playlist name
 This will be a simple UI change. Simply add an icon that indicates that this is editable.
+
  Save playlist
 When the user first lands on the page, hide the button and provide some informative text.
 When the user adds a song, show the button.
 When the user clicks save, update the button text to tell them it’s been saved.
+
+
 Caveats
 The best practice would probably be to make the save button wait on a successful “Playlist saved” response. Since we’re trying to prevent the user from making duplicate playlists, I think this is a good initial approach.
